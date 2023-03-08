@@ -71,6 +71,24 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""3275c39d-4cd2-44d6-adf8-893d67aa6fe4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""f9bb4f62-65e3-41ab-bf63-e56980796070"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +190,28 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Slide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f5127d3-d687-4a94-aacb-72889c94b5b0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b89520e-26ab-48db-9422-18bff78a44a3"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +225,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_InGame_Jump = m_InGame.FindAction("Jump", throwIfNotFound: true);
         m_InGame_Sneak = m_InGame.FindAction("Sneak", throwIfNotFound: true);
         m_InGame_Slide = m_InGame.FindAction("Slide", throwIfNotFound: true);
+        m_InGame_Shoot = m_InGame.FindAction("Shoot", throwIfNotFound: true);
+        m_InGame_Reload = m_InGame.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +291,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Jump;
     private readonly InputAction m_InGame_Sneak;
     private readonly InputAction m_InGame_Slide;
+    private readonly InputAction m_InGame_Shoot;
+    private readonly InputAction m_InGame_Reload;
     public struct InGameActions
     {
         private @Controls m_Wrapper;
@@ -258,6 +302,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_InGame_Jump;
         public InputAction @Sneak => m_Wrapper.m_InGame_Sneak;
         public InputAction @Slide => m_Wrapper.m_InGame_Slide;
+        public InputAction @Shoot => m_Wrapper.m_InGame_Shoot;
+        public InputAction @Reload => m_Wrapper.m_InGame_Reload;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -282,6 +328,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Slide.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnSlide;
                 @Slide.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnSlide;
                 @Slide.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnSlide;
+                @Shoot.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnShoot;
+                @Reload.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -301,6 +353,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Slide.started += instance.OnSlide;
                 @Slide.performed += instance.OnSlide;
                 @Slide.canceled += instance.OnSlide;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -312,5 +370,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSneak(InputAction.CallbackContext context);
         void OnSlide(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }
