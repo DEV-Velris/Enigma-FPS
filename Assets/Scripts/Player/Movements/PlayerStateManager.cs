@@ -71,7 +71,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public bool IsFalling()
     {
-        return rigidBody.velocity.y < 0;
+        return rigidBody.velocity.y < 0 && !Physics.Raycast(transform.position, Vector3.down, 0.1f);
     }
 
     public bool IsSneaking()

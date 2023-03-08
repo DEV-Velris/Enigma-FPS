@@ -5,7 +5,11 @@ public class PlayerSneakState : PlayerBaseState
     public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("J'entre en SneakState");
-        // player.transform.localScale = new Vector3(1, 0.5f, 1);
+        var transform = player.transform;
+        var pos = transform.localPosition;
+        var scale = transform.localScale;
+        transform.localPosition = new Vector3(pos.x, pos.y - 0.5f, pos.z);
+        transform.localScale = new Vector3(scale.x, -0.5f, scale.z);
     }
 
     public override void UpdateState(PlayerStateManager player)
@@ -49,5 +53,10 @@ public class PlayerSneakState : PlayerBaseState
     public override void ExitState(PlayerStateManager player)
     {
         // player.transform.localScale = new Vector3(1, 1, 1);
+        var transform = player.transform;
+        var pos = transform.localPosition;
+        var scale = transform.localScale;
+        transform.localPosition = new Vector3(pos.x, pos.y + 0.5f, pos.z);
+        transform.localScale = new Vector3(scale.x, 1f, scale.z);
     }
 }

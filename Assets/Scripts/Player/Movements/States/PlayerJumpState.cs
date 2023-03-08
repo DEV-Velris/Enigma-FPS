@@ -6,7 +6,7 @@ public class PlayerJumpState : PlayerBaseState
     {
         Debug.Log("J'entre en JumpState");
         
-        player.rigidBody.AddForce(Vector3.up * 300f, ForceMode.Impulse);
+        player.rigidBody.AddForce(Vector3.up * 380f, ForceMode.Impulse);
     }
 
     public override void UpdateState(PlayerStateManager player)
